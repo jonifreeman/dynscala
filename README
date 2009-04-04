@@ -21,6 +21,31 @@ Sample:
   scala> s-->'nonExistingMethod("foo", "bar")
   hah, trapped i am a string nonExistingMethod(foo, bar)
 
+Installed method missing handlers can be scoped by mixing in DynScala trait.
+
+  scala> object foo extends dynscala.DynScala {   
+           classOf[List[Int]].trap((r, s) => List(1,2,3,4,5))
+           println(List[Int]()-->'weird())
+         }
+  defined module foo
+
+  scala> object boo extends dynscala.DynScala {
+           println(List[Int]()-->'weird())
+         }
+  defined module boo
+
+  scala> foo
+  List(1, 2, 3, 4, 5)
+
+  scala> boo
+  dynscala.DynScala$MethodMissingError: method missing weird()
+	at dynscala.DynScala$Meta$.dynscala$DynScala$Meta$$fail(DynScala.scala:50)
+	at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:40)
+	at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:40)
+	at scala.Option.getOrElse(Option.scala:61)
+	at dynscala.DynScala$Meta$.trap(DynScala.scala:40)
+	at dynscala.DynScala$DynCal...
+
 
 DynQuery example:
 

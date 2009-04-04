@@ -32,7 +32,7 @@ trait DynScala {
 
     val traps = new java.util.concurrent.ConcurrentHashMap[Class[_], Trap]()
 
-    // FIXME: why on earth this does not compile without explicit cast?
+    // FIXME: why on earth does this not compile without an explicit cast?
     def add(receiverType: Class[_], trap: Trap) = 
       traps += (receiverType.asInstanceOf[Class[_]] -> trap)
 
