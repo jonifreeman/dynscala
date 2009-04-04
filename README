@@ -1,1 +1,34 @@
-test
+Fan language supports dynamic method dispatch by operator "->".
+Dynscala brings this feature to Scala using an ugly operator "-->'".
+
+Sample:
+
+scala> import dynscala.DynScala._
+import dynscala.DynScala._
+
+scala> val s = "i am a string"
+s: java.lang.String = i am a string
+
+scala> s-->'non_existing_method("foo", "bar")
+dynscala.DynScala$MethodMissingError: method missing non_existing_method(foo, bar)
+
+scala> classOf[String].trap((receiver, site) => println("hah, trapped " + receiver + " " + site)) // trap inserts method missing handler
+
+scala> s-->'non_existing_method("foo", "bar")
+hah, trapped i am a string non_existing_method(foo, bar)
+
+
+DynQuery example:
+
+File src/test/scala/example/DynQuery.scala contains a simple example
+providing Grails like query builder (well, without any features to
+make it useful).
+
+  val q1 = Book-->'findByTitle("The Stand")
+  val q2 = Book-->'findByTitleLike("Harry Pot%")
+  val q3 = Book-->'findByDateGreaterThan(someDate)
+ 
+  assert(q1 == "select author,date,title from book where title='The Stand'")
+  assert(q2 == "select author,date,title from book where title like 'Harry Pot%'")
+  assert(q3 == "select author,date,title from book where date > '" + someDate + "'")
+
