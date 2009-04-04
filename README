@@ -11,6 +11,10 @@ Sample:
 
   scala> s-->'nonExistingMethod("foo", "bar")
   dynscala.DynScala$MethodMissingError: method missing nonExistingMethod(foo, bar)
+	at dynscala.DynScala$Meta$.dynscala$DynScala$Meta$$fail(DynScala.scala:51)
+	at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:41)
+	at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:41)
+	at dy...
 
   scala> classOf[String].trap((receiver, site) => println("hah, trapped " + receiver + " " + site)) // trap inserts method missing handler
 
