@@ -53,6 +53,8 @@ File src/test/scala/example/DynQuery.scala contains a simple example
 providing Grails like query builder (well, without any features to
 make it useful).
 
+  case class Book(title: String, date: java.util.Date, author: String)
+
   val q1 = Book-->'findByTitle("The Stand")
   val q2 = Book-->'findByTitleLike("Harry Pot%")
   val q3 = Book-->'findByDateGreaterThan(someDate)
