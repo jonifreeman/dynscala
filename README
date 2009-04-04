@@ -9,13 +9,13 @@ import dynscala.DynScala._
 scala> val s = "i am a string"
 s: java.lang.String = i am a string
 
-scala> s-->'non_existing_method("foo", "bar")
-dynscala.DynScala$MethodMissingError: method missing non_existing_method(foo, bar)
+scala> s-->'nonExistingMethod("foo", "bar")
+dynscala.DynScala$MethodMissingError: method missing nonExistingMethod(foo, bar)
 
 scala> classOf[String].trap((receiver, site) => println("hah, trapped " + receiver + " " + site)) // trap inserts method missing handler
 
-scala> s-->'non_existing_method("foo", "bar")
-hah, trapped i am a string non_existing_method(foo, bar)
+scala> s-->'nonExistingMethod("foo", "bar")
+hah, trapped i am a string nonExistingMethod(foo, bar)
 
 
 DynQuery example:
