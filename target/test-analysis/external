@@ -1,5 +1,0 @@
-#External Dependencies
-#Sat Apr 04 20:29:39 EEST 2009
-/home/opt/scala-2.7.3.final/lib/scala-library.jar=src/test/scala/example/DynQuery.scala
-/home/inhuman/workspace/dynscala/target/classes/dynscala/DynScala.class=src/test/scala/example/DynQuery.scala
-/usr/lib/jvm/java-6-sun-1.6.0.10/jre/lib/rt.jar=src/test/scala/example/DynQuery.scala

@@ -1,4 +1,0 @@
-#External Dependencies
-#Sat Apr 04 20:29:38 EEST 2009
-/home/opt/scala-2.7.3.final/lib/scala-library.jar=src/main/scala/dynscala/DynScala.scala
-/usr/lib/jvm/java-6-sun-1.6.0.10/jre/lib/rt.jar=src/main/scala/dynscala/DynScala.scala

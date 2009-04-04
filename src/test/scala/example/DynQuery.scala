@@ -30,7 +30,7 @@ object Example {
     val q1 = Book-->'findByTitle("The Stand")
     val q2 = Book-->'findByTitleLike("Harry Pot%")
     val q3 = Book-->'findByDateGreaterThan(someDate)
-    
+
     println(q1 + "\n" + q2 + "\n" + q3)
     assert(q1 == "select author,date,title from book where title='The Stand'")
     assert(q2 == "select author,date,title from book where title like 'Harry Pot%'")
