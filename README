@@ -1,5 +1,5 @@
 Fan language supports dynamic method dispatch using operator "->".
-Dynscala brings this feature to Scala using an ugly operator "-->'".
+DynScala brings this feature to Scala using an ugly operator "-->'".
 
 Sample:
 
