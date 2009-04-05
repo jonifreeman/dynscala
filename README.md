@@ -1,8 +1,8 @@
 DynScala
 ========
 
-Fan language supports dynamic method dispatch using operator "->".  
-DynScala brings this feature to Scala using an ugly operator "-->'".  
+Fan language supports dynamic method dispatch using operator *->*.  
+DynScala brings this feature to Scala using an ugly operator *-->'*.  
 
 Sample:
 -------
