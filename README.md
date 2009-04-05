@@ -29,14 +29,17 @@ Sample:
 
 Installed method missing handlers can be scoped by mixing in DynScala trait.
 
+    scala> val list = List(1, 2)                          
+    list: List[Int] = List(1, 2)
+
     scala> object foo extends dynscala.DynScala {   
              classOf[List[Int]].trap { (r, s) => List(1,2,3,4,5) }
-             println(List[Int]()-->'weird())
+             println(list-->'weird())
            }
     defined module foo
 
     scala> object boo extends dynscala.DynScala {
-             println(List[Int]()-->'weird())
+             println(list-->'weird())
            }
     defined module boo
 
