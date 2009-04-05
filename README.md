@@ -1,8 +1,8 @@
 DynScala
 ========
 
-Fan language supports dynamic method dispatch using operator "->".
-DynScala brings this feature to Scala using an ugly operator "-->'".
+Fan language supports dynamic method dispatch using operator "->".  
+DynScala brings this feature to Scala using an ugly operator "-->'".  
 
 Sample:
 -------
@@ -29,44 +29,43 @@ Sample:
 
 Installed method missing handlers can be scoped by mixing in DynScala trait.
 
-  scala> object foo extends dynscala.DynScala {   
-           classOf[List[Int]].trap { (r, s) => List(1,2,3,4,5) }
-           println(List[Int]()-->'weird())
-         }
-  defined module foo
+    scala> object foo extends dynscala.DynScala {   
+             classOf[List[Int]].trap { (r, s) => List(1,2,3,4,5) }
+             println(List[Int]()-->'weird())
+           }
+    defined module foo
 
-  scala> object boo extends dynscala.DynScala {
-           println(List[Int]()-->'weird())
-         }
-  defined module boo
+    scala> object boo extends dynscala.DynScala {
+             println(List[Int]()-->'weird())
+           }
+    defined module boo
 
-  scala> foo
-  List(1, 2, 3, 4, 5)
+    scala> foo
+    List(1, 2, 3, 4, 5)
 
-  scala> boo
-  dynscala.DynScala$MethodMissingError: method missing weird()
-        at dynscala.DynScala$Meta$.dynscala$DynScala$Meta$$fail(DynScala.scala:50)
-        at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:40)
-        at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:40)
-        at scala.Option.getOrElse(Option.scala:61)
-        at dynscala.DynScala$Meta$.trap(DynScala.scala:40)
-        at dynscala.DynScala$DynCal...
+    scala> boo
+    dynscala.DynScala$MethodMissingError: method missing weird()
+          at dynscala.DynScala$Meta$.dynscala$DynScala$Meta$$fail(DynScala.scala:50)
+          at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:40)
+          at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:40)
+          at scala.Option.getOrElse(Option.scala:61)
+          at dynscala.DynScala$Meta$.trap(DynScala.scala:40)
+          at dynscala.DynScala$DynCal...
 
 
 DynQuery example:
 -----------------
 
-File src/test/scala/example/DynQuery.scala contains a simple example
-providing Grails like query builder (well, without any features to
-make it useful).
+File src/test/scala/example/DynQuery.scala contains a simple example providing   
+Grails like query builder (well, without any features to make it useful).  
 
-  case class Book(title: String, date: java.util.Date, author: String)
+    case class Book(title: String, date: java.util.Date, author: String)
 
-  val q1 = Book-->'findByTitle("The Stand")
-  val q2 = Book-->'findByTitleLike("Harry Pot%")
-  val q3 = Book-->'findByDateGreaterThan(someDate)
+    val q1 = Book-->'findByTitle("The Stand")
+    val q2 = Book-->'findByTitleLike("Harry Pot%")
+    val q3 = Book-->'findByDateGreaterThan(someDate)
  
-  assert(q1 == "select author,date,title from book where title='The Stand'")
-  assert(q2 == "select author,date,title from book where title like 'Harry Pot%'")
-  assert(q3 == "select author,date,title from book where date > '" + someDate + "'")
+    assert(q1 == "select author,date,title from book where title='The Stand'")
+    assert(q2 == "select author,date,title from book where title like 'Harry Pot%'")
+    assert(q3 == "select author,date,title from book where date > '" + someDate + "'")
 
