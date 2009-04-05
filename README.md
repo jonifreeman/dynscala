@@ -7,25 +7,25 @@ DynScala brings this feature to Scala using an ugly operator "-->'".
 Sample:
 -------
 
-  scala> import dynscala.DynScala._
-  import dynscala.DynScala._
+    scala> import dynscala.DynScala._
+    import dynscala.DynScala._
 
-  scala> val s = "i am a string"
-  s: java.lang.String = i am a string
+    scala> val s = "i am a string"
+    s: java.lang.String = i am a string
 
-  scala> s-->'nonExistingMethod("foo", "bar")
-  dynscala.DynScala$MethodMissingError: method missing nonExistingMethod(foo, bar)
-        at dynscala.DynScala$Meta$.dynscala$DynScala$Meta$$fail(DynScala.scala:51)
-        at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:41)
-        at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:41)
-        at dy...
+    scala> s-->'nonExistingMethod("foo", "bar")
+    dynscala.DynScala$MethodMissingError: method missing nonExistingMethod(foo, bar)
+          at dynscala.DynScala$Meta$.dynscala$DynScala$Meta$$fail(DynScala.scala:51)
+          at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:41)
+          at dynscala.DynScala$Meta$$anonfun$2.apply(DynScala.scala:41)
+          at dy...
 
-  scala> classOf[String].trap { (receiver, site) => 
-           println("hah, trapped " + receiver + " " + site)
-         } // trap inserts method missing handler for String type
+    scala> classOf[String].trap { (receiver, site) => 
+             println("hah, trapped " + receiver + " " + site)
+           } // trap inserts method missing handler for String type
 
-  scala> s-->'nonExistingMethod("foo", "bar")
-  hah, trapped i am a string nonExistingMethod(foo, bar)
+    scala> s-->'nonExistingMethod("foo", "bar")
+    hah, trapped i am a string nonExistingMethod(foo, bar)
 
 Installed method missing handlers can be scoped by mixing in DynScala trait.
 
