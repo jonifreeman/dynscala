@@ -5,21 +5,23 @@ import dynscala._
 /** Grails like queries (just a demo/proof-of-concept)
  */
 trait DynQuery extends DynScala {
-  classOf[AnyRef].trap { (receiver, site) => {
-    def receiverName = receiver.getClass.getName
-    def tableName = receiverName.split('$').last.toLowerCase
-    def fieldNames = companion.getDeclaredFields.map(_.getName)
-    def companion = Class.forName(receiverName.substring(0, receiverName.length - 1))
-    
-    val queryDesc = site.name.drop("findBy".length).toString
-    val fieldDesc = 
-      if (queryDesc.contains("Like") || queryDesc.contains("GreaterThan"))
-        queryDesc.replace("Like", " like ").replace("GreaterThan", " > ")
-      else 
-        queryDesc + "="
-    val where = fieldDesc.toLowerCase + site.params.mkString("'", ",", "'")
-    "select " + fieldNames.mkString(",") + " from " + tableName + " where " + where
-  }}
+  implicit object trap extends Trap[AnyRef] {
+    def apply(receiver: AnyRef, site: CallSite) = {
+      def receiverName = receiver.getClass.getName
+      def tableName = receiverName.split('$').last.toLowerCase
+      def fieldNames = companion.getDeclaredFields.map(_.getName)
+      def companion = Class.forName(receiverName.substring(0, receiverName.length - 1))
+
+      val queryDesc = site.name.drop("findBy".length).toString
+      val fieldDesc = 
+        if (queryDesc.contains("Like") || queryDesc.contains("GreaterThan"))
+          queryDesc.replace("Like", " like ").replace("GreaterThan", " > ")
+        else 
+          queryDesc + "="
+      val where = fieldDesc.toLowerCase + site.params.mkString("'", ",", "'")
+      "select " + fieldNames.mkString(",") + " from " + tableName + " where " + where
+    }
+  }
 }
 
 object Example {
@@ -38,4 +40,3 @@ object Example {
     assert(q3 == "select author,date,title from book where date > '" + someDate + "'")
   }
 }
-
