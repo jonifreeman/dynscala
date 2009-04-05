@@ -5,10 +5,11 @@ import dynscala._
 /** Grails like queries (just a demo/proof-of-concept)
  */
 trait DynQuery extends DynScala {
-  classOf[AnyRef].trap((receiver, site) => {
-    def tableName = receiver.getClass.getName.split('$').last.toLowerCase
+  classOf[AnyRef].trap { (receiver, site) => {
+    def receiverName = receiver.getClass.getName
+    def tableName = receiverName.split('$').last.toLowerCase
     def fieldNames = companion.getDeclaredFields.map(_.getName)
-    def companion = Class.forName(receiver.getClass.getName.substring(0, receiver.getClass.getName.length - 1))
+    def companion = Class.forName(receiverName.substring(0, receiverName.length - 1))
     
     val queryDesc = site.name.drop("findBy".length).toString
     val fieldDesc = 
@@ -18,7 +19,7 @@ trait DynQuery extends DynScala {
         queryDesc + "="
     val where = fieldDesc.toLowerCase + site.params.mkString("'", ",", "'")
     "select " + fieldNames.mkString(",") + " from " + tableName + " where " + where
-  })
+  }}
 }
 
 object Example {

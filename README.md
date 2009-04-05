@@ -1,7 +1,11 @@
+DynScala
+========
+
 Fan language supports dynamic method dispatch using operator "->".
 DynScala brings this feature to Scala using an ugly operator "-->'".
 
 Sample:
+-------
 
   scala> import dynscala.DynScala._
   import dynscala.DynScala._
@@ -50,6 +54,7 @@ Installed method missing handlers can be scoped by mixing in DynScala trait.
 
 
 DynQuery example:
+-----------------
 
 File src/test/scala/example/DynQuery.scala contains a simple example
 providing Grails like query builder (well, without any features to

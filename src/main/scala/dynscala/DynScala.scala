@@ -18,9 +18,9 @@ trait DynScala {
   class DynCall(receiver: AnyRef) {
     def -->(site: CallSite) = {
       try {
-        val paramTypes = site.params.map(Reflection.getType(_))
+        val paramTypes = site.params.map(Reflection.getType)
         val method = receiver.getClass.getMethod(site.name, paramTypes: _*)
-        method.invoke(receiver, site.params.map(Reflection.toAnyRef(_)): _*)
+        method.invoke(receiver, site.params.map(Reflection.toAnyRef): _*)
       } catch {
         case e: NoSuchMethodException => Meta.trap(receiver, site)
       }
